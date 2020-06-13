@@ -55,6 +55,11 @@ def load_model(model_dir, model_name, arch_name, device_comp, arch_type, DATA_PA
 def set_output_folders(model_name, OUTPUT_PARAMS):
     res_dir = OUTPUT_PARAMS['RESULT_PATH'] + OUTPUT_PARAMS['PROJECT_NAME'] + '_' + model_name + '/'
     models_dir = OUTPUT_PARAMS['MODEL_PATH'] + OUTPUT_PARAMS['PROJECT_NAME'] + '_' + model_name + '/'
+    if not isdir(OUTPUT_PARAMS['RESULT_PATH']):
+        mkdir( OUTPUT_PARAMS['RESULT_PATH'])
+    if not isdir( OUTPUT_PARAMS['MODEL_PATH']):
+        mkdir( OUTPUT_PARAMS['MODEL_PATH'])
+
     if not isdir(models_dir):
         mkdir(models_dir)
     if not isdir(res_dir):
