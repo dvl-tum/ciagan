@@ -25,7 +25,11 @@ In order to train a CIAGAN model, run the following command:
 python run_training.py
 ````
 
-We provided an example of our dataset that contains 5 identity folders from celebA dataset in the dataset folder. To train with full celebA dataset (or your own dataset), please setup the data in the same format.
+We provided an example of our dataset that contains 5 identity folders from celebA dataset in the dataset folder. To train with full celebA dataset (or your own dataset), please setup the data in the same format. For the results generated in our paper, we trained the network using 1200 identities (each of them having at least 30 images) from celebA dataset. The identities can be found in: 
+
+````
+dataset/celeba/legit_indices.npy
+````
 
 ## Citation
 
