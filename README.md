@@ -41,6 +41,13 @@ python test.py --model [path to the model and its name] --data [path to the data
 ````
 
 
+To process landmarks you can use code in process_data.py:
+````
+python process_data.py --input [path to a directory with raw data] --output [path to the output directory] -dlib [path to the dlib shape detector model(optional)]
+````
+
+
+
 ## Citation
 
 If you find this code useful, please consider citing the following paper:
