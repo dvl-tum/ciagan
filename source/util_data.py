@@ -25,8 +25,7 @@ from collections import defaultdict
 import cv2
 import numbers
 
-class ImageDataset(torch.utils.data.Dataset):
-    """Focal place dataset."""
+class ImageDataset(torch.utils.data.Dataset):    
     def __init__(self, root_dir, label_num=1200, transform_fnc=transforms.Compose([transforms.ToTensor()]),
                  img_size = 128, flag_init=True, flag_sample=2, flag_augment=True):
 
@@ -63,11 +62,12 @@ class ImageDataset(torch.utils.data.Dataset):
         return len(self.im_label)
 
     def load_img(self, im_path):
-        im = Image.open(im_path)
+        im = Image.open(im_path)        
+        im = im.resize([int(self.img_shape[0]*1.125)]*2, resample=Image.LANCZOS)
         w, h = im.size
 
         if self.flag_augment:
-            offset_h = 0.1
+            offset_h = 0.
             center_h = h / 2 + offset_h * h
             center_w = w / 2
             min_sz, max_sz = w / 2, (w - center_w) * 1.5
@@ -76,17 +76,17 @@ class ImageDataset(torch.utils.data.Dataset):
             img_res = im.crop(
                 (int(center_w - crop_sz - diff_sz * self.crop_rnd[0]), int(center_h - crop_sz - diff_sz * self.crop_rnd[1]),
                  int(center_w + crop_sz + diff_sz * self.crop_rnd[2]), int(center_h + crop_sz + diff_sz * self.crop_rnd[3])))
-        else:
-            offset_h = 0.1
+        else:            
+            offset_h = 0.
             center_h = h / 2 + offset_h * h
             center_w = w / 2
             min_sz, max_sz = w / 2, (w - center_w) * 1.5
-            diff_sz, crop_sz = (max_sz - min_sz) / 2, min_sz / 2
+            crop_sz = self.img_shape[0]/2
             img_res = im.crop(
-                (int(center_w - crop_sz - diff_sz),
-                 int(center_h - crop_sz - diff_sz),
-                 int(center_w + crop_sz + diff_sz),
-                 int(center_h + crop_sz + diff_sz)))
+                (int(center_w - crop_sz),
+                 int(center_h - crop_sz),
+                 int(center_w + crop_sz),
+                 int(center_h + crop_sz)))
 
         img_res = img_res.resize(self.img_shape, resample=Image.LANCZOS)
         return self.transform_fnc(img_res)

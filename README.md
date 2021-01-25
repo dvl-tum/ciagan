@@ -31,6 +31,16 @@ We provided an example of our dataset that contains 5 identity folders from cele
 dataset/celeba/legit_indices.npy
 ````
 
+You can download pre-trained model [here (google drive)](https://drive.google.com/file/d/1j5iT-SvvbC-JRy7qvY-eEP4sLzvoh8Ut/view?usp=sharing).
+
+
+We provide example of inference code in test.py file:
+
+````
+python test.py --model [path to the model and its name] --data [path to the data (optional)] -out [path to the output directory (optional)]
+````
+
+
 ## Citation
 
 If you find this code useful, please consider citing the following paper:

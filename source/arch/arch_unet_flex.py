@@ -15,7 +15,7 @@ from torch.nn import functional as F
 # main architecture. use concatenation
 class Generator(nn.Module):
 
-    def __init__(self, input_nc=6, num_classes=1200, encode_one_hot = True, img_size=64, **kwargs):
+    def __init__(self, input_nc=6, num_classes=1200, encode_one_hot = True, img_size=128, **kwargs):
         super(Generator, self).__init__()
 
         self.in_dim = input_nc
@@ -63,10 +63,10 @@ class Generator(nn.Module):
         self.in1_d = nn.InstanceNorm2d(32, affine=True)
 
         if img_size == 128:
-            self.deconv0 = ResidualBlockUp(32, 32, upsample=2)
-            self.in0_d = nn.InstanceNorm2d(32, affine=True)
+            self.deconv0 = ResidualBlockUp(32, 16, upsample=2)
+            self.in0_d = nn.InstanceNorm2d(16, affine=True)
 
-        self.conv_end = nn.Sequential(nn.Conv2d(32, 3, kernel_size=3, stride=1, padding=1),)
+        self.conv_end = nn.Sequential(nn.Conv2d(16, 3, kernel_size=3, stride=1, padding=1),)
 
         self.flag_onehot = encode_one_hot
         if encode_one_hot:
